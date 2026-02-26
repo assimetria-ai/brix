@@ -3,8 +3,9 @@ const helmet = require('helmet')
 const cors = require('cors')
 const compression = require('compression')
 const cookieParser = require('cookie-parser')
-const morgan = require('morgan')
+const pinoHttp = require('pino-http')
 
+const logger = require('./lib/@system/Logger')
 const systemRoutes = require('./routes/@system')
 const customRoutes = require('./routes/@custom')
 
@@ -17,7 +18,7 @@ app.use(express.json({ limit: '10mb' }))
 app.use(cookieParser())
 
 if (process.env.NODE_ENV !== 'test') {
-  app.use(morgan('dev'))
+  app.use(pinoHttp({ logger }))
 }
 
 // Routes
@@ -31,7 +32,7 @@ app.use((req, res) => {
 
 // Error handler
 app.use((err, req, res, _next) => {
-  console.error(err)
+  logger.error({ err, req: { method: req.method, url: req.url } }, err.message ?? 'Internal server error')
   const status = err.status ?? err.statusCode ?? 500
   res.status(status).json({ message: err.message ?? 'Internal server error' })
 })
