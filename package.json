@@ -1,0 +1,9 @@
+{
+  "name": "product-template",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "build:railway": "cd client && npm install && npm run build && cp -r dist ../server/public && cd ../server && npm install",
+    "start:railway": "node server/src/index.js"
+  }
+}

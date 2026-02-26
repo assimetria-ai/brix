@@ -1,5 +1,9 @@
-import { Toaster as ShadToaster } from '@radix-ui/react-toast'
+import { ToastProvider, ToastViewport } from '@radix-ui/react-toast'
 
 export function Toaster() {
-  return <ShadToaster />
+  return (
+    <ToastProvider>
+      <ToastViewport />
+    </ToastProvider>
+  )
 }

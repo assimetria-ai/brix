@@ -1,6 +1,15 @@
 version: '3.8'
 
-# Local dev override — DB only, run client/server natively
+# ─────────────────────────────────────────────
+#  Local dev override — DB + Redis only
+#  Run client and server natively with:
+#    cd server && npm run dev
+#    cd client && npm run dev
+#
+#  Usage:
+#    docker compose -f docker-compose.local.yml up -d
+# ─────────────────────────────────────────────
+
 services:
   db:
     image: postgres:15-alpine
@@ -12,6 +21,25 @@ services:
       - "5432:5432"
     volumes:
       - pgdata_local:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres -d product_template_dev"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  redis:
+    image: redis:7-alpine
+    command: redis-server --appendonly yes
+    ports:
+      - "6379:6379"
+    volumes:
+      - redisdata_local:/data
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
 
 volumes:
   pgdata_local:
+  redisdata_local:

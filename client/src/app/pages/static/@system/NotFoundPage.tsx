@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom'
-import { Button } from '../../components/@system/ui/button'
+import { Button } from '../../../components/@system/ui/button'
 
 export function NotFoundPage() {
   return (

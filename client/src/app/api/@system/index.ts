@@ -25,11 +25,20 @@ export const editUser = (data: { email?: string; name?: string }) =>
 
 // ─── Sessions ────────────────────────────────────────────────────────────────
 
-export const startSession = (data: Record<string, unknown>) =>
-  apiRequest.post('/sessions/start', data)
+export interface Session {
+  id: number
+  ipAddress: string | null
+  userAgent: string | null
+  createdAt: string
+  expiresAt: string
+  isCurrent: boolean
+}
 
-export const endSession = (data: { sessionId: string }) =>
-  apiRequest.post('/sessions/end', data)
+export const getSessions = () =>
+  apiRequest.get<{ sessions: Session[] }>('/sessions')
+
+export const revokeSession = (id: number) =>
+  apiRequest.delete<{ message: string }>(`/sessions/${id}`)
 
 // ─── Subscriptions ───────────────────────────────────────────────────────────
 

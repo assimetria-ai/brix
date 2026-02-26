@@ -1,8 +1,15 @@
 // @system — app sidebar layout component
+import { Link } from 'react-router-dom'
 import { cn } from '@/app/lib/@system/utils'
 
 interface SidebarProps {
   children: React.ReactNode
+  className?: string
+}
+
+interface SidebarLogoProps {
+  name: string
+  href?: string
   className?: string
 }
 
@@ -24,6 +31,19 @@ function Sidebar({ children, className }: SidebarProps) {
     >
       {children}
     </aside>
+  )
+}
+
+function SidebarLogo({ name, href = '/app', className }: SidebarLogoProps) {
+  return (
+    <div className={cn('mb-6 px-3', className)}>
+      <Link
+        to={href}
+        className="flex items-center gap-2 text-foreground hover:opacity-80 transition-opacity"
+      >
+        <span className="font-bold text-base tracking-tight">{name}</span>
+      </Link>
+    </div>
   )
 }
 
@@ -49,4 +69,4 @@ function SidebarItem({ icon, label, active, onClick, className }: SidebarItemPro
   )
 }
 
-export { Sidebar, SidebarSection, SidebarItem }
+export { Sidebar, SidebarLogo, SidebarSection, SidebarItem }
