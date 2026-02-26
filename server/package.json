@@ -23,6 +23,7 @@
     "compression": "^1.7.4",
     "cookie-parser": "^1.4.6",
     "cors": "^2.8.5",
+    "cron-parser": "^4.9.0",
     "dotenv": "^16.4.5",
     "express": "^4.19.2",
     "express-rate-limit": "^7.4.1",
@@ -31,6 +32,7 @@
     "jsonwebtoken": "^9.0.2",
     "morgan": "^1.10.0",
     "node-cache": "^5.1.2",
+    "node-cron": "^3.0.3",
     "nodemailer": "^8.0.1",
     "otpauth": "^9.5.0",
     "pg-promise": "^11.9.1",
@@ -40,6 +42,10 @@
     "stripe": "^16.6.0",
     "uuid": "^10.0.0",
     "zod": "^4.3.6"
+  },
+  "optionalDependencies": {
+    "algoliasearch": "^4.24.0",
+    "meilisearch": "^0.44.0"
   },
   "devDependencies": {
     "jest": "^29.7.0",

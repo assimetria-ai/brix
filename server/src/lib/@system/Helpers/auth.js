@@ -38,7 +38,7 @@ async function authenticate(req, res, next) {
       if (!user) return res.status(401).json({ message: 'Unauthorized' })
       // Fire-and-forget last_used update
       ApiKeyRepo.touchLastUsed(apiKey.id).catch(() => {})
-      req.user = { id: user.id, email: user.email, name: user.name, role: user.role, emailVerified: !!user.email_verified_at }
+      req.user = { id: user.id, email: user.email, name: user.name, role: user.role, emailVerified: !!user.email_verified_at, onboardingCompleted: !!user.onboarding_completed }
       req.apiKey = { id: apiKey.id, name: apiKey.name }
       return next()
     }
@@ -47,7 +47,7 @@ async function authenticate(req, res, next) {
     const payload = await verifyTokenAsync(rawToken)
     const user = await UserRepo.findById(payload.userId)
     if (!user) return res.status(401).json({ message: 'Unauthorized' })
-    req.user = { id: user.id, email: user.email, name: user.name, role: user.role, emailVerified: !!user.email_verified_at }
+    req.user = { id: user.id, email: user.email, name: user.name, role: user.role, emailVerified: !!user.email_verified_at, onboardingCompleted: !!user.onboarding_completed }
     next()
   } catch (err) {
     res.status(401).json({ message: 'Unauthorized' })

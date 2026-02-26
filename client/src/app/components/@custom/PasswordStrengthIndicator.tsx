@@ -45,9 +45,9 @@ export function PasswordStrengthIndicator({
           {strength.requirements.map((req) => (
             <li key={req.key} className="flex items-center gap-1.5">
               {req.met ? (
-                <Check size={12} className="text-green-500 shrink-0" aria-hidden />
+                <Check className="h-3 w-3 text-green-500 shrink-0" aria-hidden />
               ) : (
-                <X size={12} className="text-muted-foreground shrink-0" aria-hidden />
+                <X className="h-3 w-3 text-muted-foreground shrink-0" aria-hidden />
               )}
               <span
                 className={`text-xs transition-colors duration-200 ${
