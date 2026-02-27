@@ -7,17 +7,9 @@
 // module.exports = { ProjectRepo }
 
 const ApiKeyRepo = require('./ApiKeyRepo')
+const AuditLogRepo = require('./AuditLogRepo')
 const BrandRepo = require('./BrandRepo')
 const CollaboratorRepo = require('./CollaboratorRepo')
-const ErrorEventRepo = require('./ErrorEventRepo')
-const PricingPlanRepo = require('./PricingPlanRepo')
 const UserRepo = require('./UserRepo')
 
-module.exports = {
-  ApiKeyRepo,
-  BrandRepo,
-  CollaboratorRepo,
-  ErrorEventRepo,
-  PricingPlanRepo,
-  UserRepo,
-}
+module.exports = { ApiKeyRepo, AuditLogRepo, BrandRepo, CollaboratorRepo, UserRepo }
