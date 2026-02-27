@@ -1,4 +1,4 @@
-const db = require('../../lib/@system/PostgreSQL')
+const db = require('../../../lib/@system/PostgreSQL')
 const fs = require('fs')
 const path = require('path')
 
