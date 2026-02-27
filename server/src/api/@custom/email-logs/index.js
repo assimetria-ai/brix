@@ -124,16 +124,17 @@ router.get('/email-logs/:id', authenticate, requireAdmin, async (req, res, next)
 })
 
 // POST /api/email-logs  — ingest an email send event
-// Can be called internally (no auth) via a shared secret, or via admin auth
+// Requires EMAIL_TRACKING_SECRET env var. Rejects all ingestion if it is not configured.
 router.post('/email-logs', async (req, res, next) => {
   try {
-    // Allow internal calls with a shared secret header, or admin JWT
-    const secret = req.headers['x-email-tracking-secret']
     const expectedSecret = process.env.EMAIL_TRACKING_SECRET
-
-    if (expectedSecret && secret !== expectedSecret) {
-      // Fall back to checking JWT admin auth
-      // We do a manual auth check instead of middleware so we can support both flows
+    if (!expectedSecret) {
+      return res.status(503).json({ message: 'Email tracking not configured' })
+    }
+    const secret = req.headers['x-email-tracking-secret']
+    const { timingSafeEqual } = require('crypto')
+    const toBuffer = (s) => Buffer.from(String(s))
+    if (!secret || !timingSafeEqual(toBuffer(secret), toBuffer(expectedSecret))) {
       return res.status(401).json({ message: 'Unauthorized' })
     }
 

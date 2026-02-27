@@ -40,12 +40,17 @@ router.get('/errors/:id', authenticate, requireAdmin, async (req, res, next) => 
 })
 
 // POST /api/errors  — ingest an error event (SDK/webhook endpoint)
-// Uses a shared DSN secret instead of user auth for flexibility
+// Requires ERROR_TRACKING_DSN env var. Rejects all ingestion if not configured.
 router.post('/errors', async (req, res, next) => {
   try {
-    const dsn = req.headers['x-sentry-dsn'] ?? req.headers['x-error-dsn']
     const expectedDsn = process.env.ERROR_TRACKING_DSN
-    if (expectedDsn && dsn !== expectedDsn) {
+    if (!expectedDsn) {
+      return res.status(503).json({ message: 'Error tracking not configured' })
+    }
+    const dsn = req.headers['x-sentry-dsn'] ?? req.headers['x-error-dsn']
+    const { timingSafeEqual } = require('crypto')
+    const toBuffer = (s) => Buffer.from(String(s))
+    if (!dsn || !timingSafeEqual(toBuffer(dsn), toBuffer(expectedDsn))) {
       return res.status(401).json({ message: 'Invalid DSN' })
     }
 
