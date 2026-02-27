@@ -1,67 +1,12 @@
 import { Route } from 'react-router-dom'
-import { ErrorTrackingPage } from '../../pages/app/@custom/ErrorTrackingPage'
-import { CollaboratorsPage } from '../../pages/app/@custom/CollaboratorsPage'
-import { BrandSettingsPage } from '../../pages/app/@custom/BrandSettingsPage'
-import { ChatbasePage } from '../../pages/app/@custom/ChatbasePage'
-import { EmailTrackingPage } from '../../pages/app/@custom/EmailTrackingPage'
-import { EmailPreviewPage } from '../../pages/app/@custom/EmailPreviewPage'
-import { PrivateRoute } from '@/app/components/@system/PrivateRoute/PrivateRoute'
+import { BrixDashboardPage } from '../../pages/app/@custom/BrixDashboardPage'
+import { PageEditorPage } from '../../pages/app/@custom/PageEditorPage'
+import { PricingPlansPage } from '../../pages/app/@custom/PricingPlansPage'
+import { PricingPage } from '../../pages/static/@custom/PricingPage'
 
-// @custom — add your product-specific routes here.
-// Wrap with <PrivateRoute> for authenticated pages.
 export const customRoutes: React.ReactElement[] = [
-  <Route
-    key="error-tracking"
-    path="/app/errors"
-    element={
-      <PrivateRoute>
-        <ErrorTrackingPage />
-      </PrivateRoute>
-    }
-  />,
-  <Route
-    key="collaborators"
-    path="/app/collaborators"
-    element={
-      <PrivateRoute>
-        <CollaboratorsPage />
-      </PrivateRoute>
-    }
-  />,
-  <Route
-    key="brand-settings"
-    path="/app/brand"
-    element={
-      <PrivateRoute>
-        <BrandSettingsPage />
-      </PrivateRoute>
-    }
-  />,
-  <Route
-    key="chatbase"
-    path="/app/chatbase"
-    element={
-      <PrivateRoute>
-        <ChatbasePage />
-      </PrivateRoute>
-    }
-  />,
-  <Route
-    key="email-tracking"
-    path="/app/emails"
-    element={
-      <PrivateRoute role="admin">
-        <EmailTrackingPage />
-      </PrivateRoute>
-    }
-  />,
-  <Route
-    key="email-preview"
-    path="/app/emails/preview"
-    element={
-      <PrivateRoute role="admin">
-        <EmailPreviewPage />
-      </PrivateRoute>
-    }
-  />,
+  <Route key="brix-dashboard" path="/app/pages" element={<BrixDashboardPage />} />,
+  <Route key="page-editor" path="/app/pages/:id/edit" element={<PageEditorPage />} />,
+  <Route key="admin-pricing" path="/app/admin/pricing" element={<PricingPlansPage />} />,
+  <Route key="pricing" path="/pricing" element={<PricingPage />} />,
 ]
