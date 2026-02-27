@@ -5,11 +5,32 @@ import { BrandSettingsPage } from '../../pages/app/@custom/BrandSettingsPage'
 import { ChatbasePage } from '../../pages/app/@custom/ChatbasePage'
 import { EmailTrackingPage } from '../../pages/app/@custom/EmailTrackingPage'
 import { EmailPreviewPage } from '../../pages/app/@custom/EmailPreviewPage'
+import { PageEditorPage } from '../../pages/app/@custom/PageEditorPage'
+import { PagesListPage } from '../../pages/app/@custom/PagesListPage'
 import { PrivateRoute } from '@/app/components/@system/PrivateRoute/PrivateRoute'
 
 // @custom — add your product-specific routes here.
 // Wrap with <PrivateRoute> for authenticated pages.
 export const customRoutes: React.ReactElement[] = [
+  // Brix page builder routes (CORE FEATURE)
+  <Route
+    key="pages-list"
+    path="/app/pages"
+    element={
+      <PrivateRoute>
+        <PagesListPage />
+      </PrivateRoute>
+    }
+  />,
+  <Route
+    key="page-editor"
+    path="/app/pages/:id/edit"
+    element={
+      <PrivateRoute>
+        <PageEditorPage />
+      </PrivateRoute>
+    }
+  />,
   <Route
     key="error-tracking"
     path="/app/errors"
