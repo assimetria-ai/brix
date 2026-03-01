@@ -7,11 +7,42 @@ import { EmailTrackingPage } from '../../pages/app/@custom/EmailTrackingPage'
 import { EmailPreviewPage } from '../../pages/app/@custom/EmailPreviewPage'
 import { PageEditorPage } from '../../pages/app/@custom/PageEditorPage'
 import { PagesListPage } from '../../pages/app/@custom/PagesListPage'
+import { ProductCatalogPage } from '../../pages/app/@custom/ProductCatalogPage'
+import { OrdersPage } from '../../pages/app/@custom/OrdersPage'
+import { DiscountsPage } from '../../pages/app/@custom/DiscountsPage'
 import { PrivateRoute } from '@/app/components/@system/PrivateRoute/PrivateRoute'
 
 // @custom — add your product-specific routes here.
 // Wrap with <PrivateRoute> for authenticated pages.
 export const customRoutes: React.ReactElement[] = [
+  // Brix commerce features
+  <Route
+    key="product-catalog"
+    path="/app/catalog"
+    element={
+      <PrivateRoute>
+        <ProductCatalogPage />
+      </PrivateRoute>
+    }
+  />,
+  <Route
+    key="orders"
+    path="/app/orders"
+    element={
+      <PrivateRoute>
+        <OrdersPage />
+      </PrivateRoute>
+    }
+  />,
+  <Route
+    key="discounts"
+    path="/app/discounts"
+    element={
+      <PrivateRoute>
+        <DiscountsPage />
+      </PrivateRoute>
+    }
+  />,
   // Brix page builder routes (CORE FEATURE)
   <Route
     key="pages-list"

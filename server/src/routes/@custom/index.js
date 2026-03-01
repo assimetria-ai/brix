@@ -11,5 +11,9 @@ router.use(require('../../api/@custom/chatbase'))
 router.use(require('../../api/@custom/email-logs'))
 router.use(require('../../api/@custom/storage'))
 router.use(require('../../api/@custom/blog'))
+// Brix commerce features
+router.use(require('../../api/@custom/catalog'))
+router.use(require('../../api/@custom/orders'))
+router.use(require('../../api/@custom/discounts'))
 
 module.exports = router
